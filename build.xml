@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="MangoAPI" default="dist" basedir=".">
+   <property name="build.dir" value="WebContent" description="输出目录"/>  
+   <property name="build.web.dir" value="${build.dir}/WEB-INF" description="web配置输出目录" />
+	<property name="build.web.class.dir" value="${build.web.dir}/classes" description="web类输出目录"/> 
+	<property name="build.web.lib.dir" value="${build.web.dir}/lib" description="lib引用目录"/> 
+   	<property name="src.dir" value="src/java/main" description="源代码目录"/> 
+   	<property name="webContent.dir" value="${basedir}/WebContent"/> 
+   	<property name="lib.dir" value="${webContent.dir}/WEB-INF/lib"/> 
+   	<property name="parent.dir" location="." />
+	
+   	<property name="encoding" value="UTF-8"/> 
+      
+	<path id="project.classpath">
+		<fileset dir="${lib.dir}">
+				<include name="*.jar"/>
+		</fileset>
+		<pathelement path="${basedir}/WebContent/WEB-INF/lib"/>
+	</path>
+	
+	<target name="init"> 
+		<description>初始化操作,创建目录</description>
+		<mkdir dir="${build.web.dir}/classes"/>
+	</target> 
+	
+	<target name="clean">
+		<description>清理目录</description>
+		<delete dir="${build.web.dir}/classes"/>
+	</target>
+	
+	<target name="compile" depends="init">
+		<javac destdir="${build.web.class.dir}" source="1.7" target="1.7" debug="on" deprecation="false" optimize="false" failonerror="true" srcdir="${src.dir}">
+			<compilerarg line="-encoding UTF-8"/>
+			<classpath refid="project.classpath"></classpath>
+		</javac>
+		<copy todir="${build.web.class.dir}">
+			<fileset dir="${src.dir}" excludes="**/*.java"></fileset>
+		</copy>
+		<copy todir="${build.dir}">
+			<fileset dir="${webContent.dir}" excludes="**/*.class"></fileset>
+		</copy>
+		<copy todir="${build.web.class.dir}">
+			<fileset dir="src/java/resources" excludes="**/config"></fileset>
+		</copy>
+	</target>
+	
+	<target name="main" depends="clean,init,compile"/>
+	<target name="dist" depends="main" description="打成war">
+		<war destfile="${parent.dir}/${ant.project.name}.war" basedir="${webContent.dir}" webxml="${build.web.dir}/web.xml"></war>
+	</target>
+	
+</project>

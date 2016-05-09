@@ -1,0 +1,66 @@
+<check-list>
+	<check mangoId="userLogin">
+		<param-list>
+			<sub-param name="userName">
+				<rule-list>
+					<rule key="required" />
+				</rule-list>
+			</sub-param>
+			<sub-param name="password">
+				<rule-list>
+					<rule key="required" />
+				</rule-list>
+			</sub-param>
+		</param-list>
+	</check>
+<check mangoId="upkey">
+		<param-list>
+			<sub-param name="appkey">
+				<rule-list>
+					<rule key="required" />
+					<rule key="rangelength" value="[32,32]"></rule>
+				</rule-list>
+			</sub-param>
+		</param-list>
+	</check>
+<check mangoId="toDesa">
+		<param-list>
+			<sub-param name="desa">
+				<rule-list>
+					<rule key="required" />
+					<rule key="rangelength" value="[8,8]"></rule>
+				</rule-list>
+			</sub-param>
+		</param-list>
+	</check>
+	<check mangoId="toDesb">
+		<param-list>
+			<sub-param name="desa">
+				<rule-list>
+					<rule key="required" />
+					<rule key="rangelength" value="[8,8]"></rule>
+				</rule-list>
+			</sub-param>
+		</param-list>
+	</check>
+	<check mangoId="toRsaa">
+		<param-list>
+			<sub-param name="rsaa">
+				<rule-list>
+					<rule key="required" />
+					<rule key="rangelength" value="[188,188]"></rule>
+				</rule-list>
+			</sub-param>
+		</param-list>
+	</check>
+	<check mangoId="toRsab">
+		<param-list>
+			<sub-param name="rsaa">
+				<rule-list>
+					<rule key="required" />
+					<rule key="rangelength" value="[188,188]"></rule>
+				</rule-list>
+			</sub-param>
+		</param-list>
+	</check>
+</check-list>

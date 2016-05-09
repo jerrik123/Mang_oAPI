@@ -1,0 +1,240 @@
+<html lang="zh-cn" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>接入指引 - 芒果网会员API</title>
+<meta name="generator" content="MediaWiki 1.17.0">
+<link rel="shortcut icon" href="resources/img/favicon.ico" />
+<link rel="bookmark" href="resources/img/favicon.ico" />
+<link rel="stylesheet" href="resources/css/web.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]-->
+</head>
+<body class="mediawiki ltr ns-0 ns-subject page-接入指引 skin-vector">
+	<!--[if IE 6]>
+<style type="text/css">
+html{background-image:url(about:blank);background-attachment:fixed;}
+#content{overflow-x:hidden;}
+.bottomnav{position:absolute;top:expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-30));}
+</style>
+<![endif]-->
+	<!--网站头部-->
+	<div class="headWrap">
+		<div class="header" id="header">
+			<div class="inner">
+				<a class="logo" href="../home/index.html"><img
+					src="resources/img/ac9be2eafdeb95d50b28fa7cd75bb499.png"
+					alt="芒果网会员基础api"></a>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="resources/js/jquery-1.11.0.js"></script>
+	<script type="text/javascript" src="resources/js/jquery-mbr-1.3.js"></script>
+	<script type="text/javascript" src="resources/js/template.js"></script>
+	<script type="text/html" id="tplMenu">
+<div class="portal active" id="p-.E8.8E.B7.E5.8F.96.E6.8E.A5.E5.8F.A3.E8.B0.83.E7.94.A8.E5.87.AD.E6.8D.AE" style="margin-top: -1px;">
+	<h5><span class="portal_arrow"></span>接入说明</h5>
+	<div class="body" style="display: block;">
+				<ul>
+					<li id="n-.E8.8E.B7.E5.8F.96access_token"><a href="#" onclick="shouye()">说明</a></li>
+					
+				</ul>
+			</div>
+</div>
+{{each list as value i}}
+	<div class="portal" id="p-.E5.BC.80.E5.8F.91.E8.80.85.E5.BF.85.E8.AF.BB" style="margin-top: -1px;">
+					{{if value.length>0}}
+					<h5>
+						<span class="portal_arrow"></span>{{value[0].withs}}
+					</h5>
+					<div class="body">
+						<ul>
+							{{each value as item j}}
+								<li id="{{item.id}}" ><input name="method{{item.method}}" type="hidden" class="{{item.method}}" value="{{item.method}}"/><a href="#" class="event" submitKey="{{item.method}}" mangoId="loadcontent" successful="loadcontent" >{{item.methodname}}</a><i class="del"></i></li>
+							{{/each}}
+						</ul>
+					</div>
+					{{/if}}
+	</div>
+{{/each}}
+</script>
+	<script type="text/html" id="tplContent">
+<p>
+						<b>接口调用请求说明(版本{{version}})</b><a href="#">历史</a>
+					</p>
+					<pre>http请求方式: POST
+<a
+							href="#"
+							class="external free" rel="nofollow" ><input type="text" value="{{url}}"/></a>
+</pre>
+					<p>
+						<b>参数说明</b>
+<i class="sub event"  submitkey="{{method}}" mangoid="addcontent" successful="addcontentsucc"></i>
+
+					</p>
+
+<div class="openbox_content"><textarea class="{{method}}" name="{{method}}_injson" readonly="true" >{{injson}}
+</textarea> </div>
+					<table border="1" cellspacing="0" cellpadding="4" align="center"
+						width="640px">
+						<tbody>
+							<tr>
+								<th style="width: 120px">参数</th>
+								<th style="width: 120px">是否必须</th>
+								<th>说明</th>
+							</tr>
+							<tr>
+								<td>appid</td>
+								<td>是</td>
+								<td>应用id</td>
+							</tr>
+							<tr>
+								<td>adjustCode</td>
+								<td>是</td>
+								<td>校验码md5(appid+appkey+{{method}})</td>
+							</tr>
+							{{each injsonexplain as value i}}
+								<tr>
+								<td><i class="del" onclick="deltr(this)"></i><input type="text" class="{{method}}" name="{{method+'_a_'+i}}" style="width:75%" value="{{value.cs}}"/></td>
+								<td><input type="text" class="{{method}}" name="{{method+'_b_'+i}}" style="width:95%" value="{{value.sfbx}}"/></td>
+								<td><input type="text" class="{{method}}" name="{{method+'_c_'+i}}" style="width:95%" value="{{value.sm}}"/></td>
+							</tr>
+							{{/each}}
+<tr>
+								<td colspan=3><i class="add" onclick="addtr(this)"></i></td>
+								
+							</tr>
+						</tbody>
+					</table>
+					<p>
+						<b>返回说明</b>
+					</p>
+					<p>正常情况下，会返回下述JSON数据包：</p>
+					<pre>{{outjson}}
+</pre>
+					<table border="1" cellspacing="0" cellpadding="4" align="center"
+						width="640px">
+						<tbody>
+							<tr>
+								<th style="width: 240px">参数</th>
+								<th>说明</th>
+							</tr>
+							{{each outjsonexplain as value i}}
+								<tr>
+								<td>{{value.cs}}</td>
+								<td>{{value.sm}}</td>
+							</tr>
+							{{/each}}
+						</tbody>
+					</table>
+					<p>
+						<br> 错误时会返回错误码等信息，JSON数据包示例如下（详情请查看全局返回码说明）:
+					</p>
+					<pre>{"errcode":***,"errmsg":"参数不对"}
+</pre>
+					<p>
+						<a href="#" class="external text" rel="nofollow">全局返回码说明</a>
+					</p>
+
+</script>
+	<script type="text/javascript">
+		$successful.loadover = function(data) {
+			var data = {
+				list : data.bodyMap.result
+			};
+			$('#mw-panel').html(template('tplMenu', data));
+			wiki.bindNavEvent(location.pathname);
+			$remoteBindProcess.bind();
+		}
+		$successful.loadcontent = function(data) {
+			$('#bodyContent').html(template('tplContent', data.bodyMap.result));
+			$('#firstHeading').html(data.bodyMap.result.method);
+			$remoteBindProcess.bind();
+		}
+		var shouye = function() {
+			location.reload();
+		}
+		var addtr = function(obj) {
+			//alert($(obj).html());
+			$(obj)
+					.parent()
+					.parent()
+					.parent()
+					.find("tr")
+					.last()
+					.before(
+							"<tr><td><i class='del' onclick='deltr(this)'></i><input type='text' style='width:75%' /></td><td><input type='text' style='width:95%' /></td><td><input type='text' style='width:95%' /></td></tr>");
+		}
+		var deltr = function(obj) {
+			//alert($(obj).html());
+			console.log($(obj).parent().parent().parent().html())
+			$(obj).parent().parent().remove();
+		}
+	</script>
+	<script type="text/javascript"
+		src="resources/js/bff18ac75ffc4119cb2bef02c142e2ba.js"></script>
+	<!--网站头部-->
+	<input type="hidden" class="initload" submitKey="select"
+		mangoId="loadtree" successful="loadover" />
+	<input type="hidden" class="select loadcontent" name="app"
+		value="wx17688f0881ac9513" />
+	<div id="mw-page-base" class="noprint"></div>
+	<div id="mw-head-base" class="noprint"></div>
+	<div class="mainwrapper">
+		<div class="inner">
+			<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- 开发者必读 -->
+
+			</div>
+			<!-- /panel -->
+			<!-- content -->
+			<div id="content">
+				<!-- header -->
+
+				<!-- /header -->
+				<a id="top"></a>
+				<div id="mw-js-message" style="display: none;"></div>
+				<!-- firstHeading -->
+				<div class="content_hd">
+					<h2 id="firstHeading" class="">接入指引</h2>
+					<div class="info"></div>
+				</div>
+				<!-- /firstHeading -->
+				<!-- bodyContent -->
+				<div id="bodyContent" class="bodyContent">
+					IP端口:10.10.39.60:80<br> (10.10.39.60
+					mbrse.mangocity.com或者10.10.39.60 test.mangocity.com)<br>
+					appid:wx17688f0881ac9513<br>
+					appkey:9aa273cf91a929ee6b59e1c584e88a98<br>
+					adjustCode:md5(appid+appkey+method)
+
+				</div>
+				<!-- /bodyContent -->
+			</div>
+			<!-- /content -->
+
+		</div>
+	</div>
+	<!-- footer -->
+	<div class="foot" id="footer">
+		<ul class="links ft" id="footer-places">
+			<li class="links_item no_extra" id="footer-about"><a
+				target="_blank" href="">关于芒果网会员</a></li>
+			<li class="links_item" id="footer-policy"><a target="_blank"
+				href="#">服务协议</a></li>
+			<li class="links_item" id="footer-contactus"><a target="_blank"
+				href="">客服中心</a></li>
+			<li class="links_item" id="footer-contactus"><a href=""
+				target="_blank">在线客服</a></li>
+		</ul>
+		<ul id="footer-icons" class="noprint">
+			<li id="footer-poweredbyico"><a href=""><img src=""
+					alt="Powered by MediaWiki" width="88" height="31"></a></li>
+		</ul>
+		<p class="copyright">Copyright&nbsp;© 2012-2015 Mangocity. All
+			Rights Reserved.</p>
+	</div>
+	<!-- /footer -->
+</body>
+</html>

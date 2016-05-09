@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mangocity.sqlmapper.upMapper">
+	<resultMap type="java.util.Map" id="mbrMap">
+	</resultMap>
+	
+	<update id="upKeyByAppId" parameterType="map" >
+		update app set
+		<if test="appkey != null">secret=#{appkey} </if>
+		 <if test="pip != null">proip=#{pip} </if>
+		 <if test="tip != null">testip=#{tip} </if>
+		 where id=#{app}
+	</update>
+	<select id="loadInfoByAppId" parameterType="map" resultType="map">
+		select secret,user,proip,testip,language from app where id=#{app} 
+	</select>
+</mapper> 

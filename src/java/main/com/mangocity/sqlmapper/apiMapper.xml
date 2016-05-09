@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mangocity.sqlmapper.apiMapper">
+	<resultMap type="java.util.Map" id="mbrMap">
+	</resultMap>
+	<select id="queryAllMenuTree" parameterType="map" resultType="map">
+		select * from interface
+	</select>
+	<select id="AllContent" parameterType="map" resultType="map">
+		select a.* from content a   where  a.[method]=#{method}  order by version desc limit 1
+	</select>
+	<select id="queryLeftMenuTreeByAppId" parameterType="map" resultType="map">
+		select a.id,b.method,c.withs,c.methodname from app a left join relevance b on a.id = b.app left join interface c on b.method=c.method where a.id=#{appId}
+	</select>
+	
+	<select id="loadContent" parameterType="map" resultType="map">
+		select a.*,b.[app] from content a  left join relevance b on a.[method]=b.[method] where a.[method]=#{method} and b.[app]=#{appId} order by version desc limit 1
+	</select>
+	
+	<select id="queryAllCachedData" parameterType="map" resultType="map">
+		select app,method,secret,proip,testip from relevance r left join app a on r.[app]=a.[id]
+	</select>
+	<insert id="addContent" parameterType="map"  >
+		insert into content (method,url,version,injson,injsonexplain,outjson,outjsonexplain)
+		values(
+		#{method},
+		#{url},
+		(select case  when version is null then '1' else max(version)+1 end from content where method=#{method}),
+		#{injson},
+		#{injsonexplain},
+		#{outjson},
+		#{outjsonexplain})
+	</insert>
+	
+	<select id="queryInterfaceByMethodAndName" parameterType="map" resultType="java.lang.Integer">
+		select count(*) from interface where method=#{method} and methodname=#{methodname}
+	</select>
+	
+	<insert id="addInterface" parameterType="map" >
+		insert into interface (method,methodname,withs,info)
+		values(
+		#{method},
+		#{methodname},
+		#{withs},
+		#{info})
+	</insert>
+</mapper> 

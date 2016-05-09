@@ -1,0 +1,8 @@
+<mangocity>
+  <action mangoId="AllContent,alltree,loadtree,loadcontent,addcontent" mangoClass="com.mangocity.controller.ApiController"></action>
+  <action mangoId="upkey,loadinfo,uppip,uptip" mangoClass="com.mangocity.controller.UpController"></action>
+   <!-- 处理用户操作 -->
+  <action mangoId="userLogin" mangoClass="com.mangocity.controller.UserController"></action>
+    <action mangoId="todoCode,toRsaa,toDesa,toRsab,toDesb" mangoClass="com.mangocity.controller.ToolController"></action>
+    <action mangoId="addInterface" mangoClass="com.mangocity.controller.MenuController"></action>
+</mangocity>
